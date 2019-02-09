@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using IpCorpTestApi.DTOS;
 using IpCorpTestApi.Models;
 using IpCorpTestApi;
 using IpCorpTestApi.Services;
@@ -29,28 +27,26 @@ namespace IpCorpTestApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<LogSistemaDTO> Get(int id)
+        public ActionResult<LogSistema> Get(int id)
         {
-            LogSistemaDTO ls= _logSistemaService.GetByID(id);
+            LogSistema ls= _logSistemaService.GetByID(id);
             if (ls==null)
                 return NotFound();
 
             return ls;
         }
 
-
         [HttpGet()]
-         public IList<LogSistemaDTO> GetAll()
+         public IList<LogSistema> GetAll()
         {
-
             return _logSistemaService.GetAll();
         } 
 
         [HttpGet("GetLogsFromSource")]
          public async Task<IActionResult> GetLogsFromSource()
         {
-            await _logSistemaService.GetLogsFromSource(2);
-            return Ok();
+            int importedLogs = await _logSistemaService.GetLogsFromSource(2);
+            return Ok(new {ImportedLogs = importedLogs});
         }                 
 
     }

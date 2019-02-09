@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using IpCorpTestApi.DTOS;
+using IpCorpTestApi.Responses;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using System.Globalization;
@@ -37,10 +37,10 @@ namespace IpCorpTestApi
             _clientID = clientID;                                                        
         }  
 
-        public async Task<List<LogSistemaDTO>> GetLogs(string queryString = "")  
+        public async Task<List<LogSistemaResponse>> GetLogs(string queryString = "")  
         {  
             Uri requestUrl = CreateRequestUri(string.Format(CultureInfo.InvariantCulture, "LogSistema"),queryString);
-            return await GetAsync<List<LogSistemaDTO>>(requestUrl);  
+            return await GetAsync<List<LogSistemaResponse>>(requestUrl);  
         }
 
 

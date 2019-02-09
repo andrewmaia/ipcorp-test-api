@@ -1,10 +1,10 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace IpCorpTestApi.DTOS
+namespace IpCorpTestApi.Responses
 {
     [DataContract]
-    public class LogSistemaDTO
+    public class LogSistemaResponse
     {
         [DataMember(Name="LogSistemaId")]
         public int LogSistemaId { get; set; }

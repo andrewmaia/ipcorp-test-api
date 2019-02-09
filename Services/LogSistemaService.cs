@@ -2,20 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using IpCorpTestApi.Models;
-using IpCorpTestApi.DTOS;
 using System.Text;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using IpCorpTestApi.Responses;
 
 namespace IpCorpTestApi.Services
 {
     public interface ILogSistemaService
     {
-        LogSistemaDTO GetByID(int ID);
-        IList<LogSistemaDTO> GetAll();
+        LogSistema GetByID(int ID);
+        IList<LogSistema> GetAll();
 
-        Task<bool> GetLogsFromSource(int batch);
+         Task<int> GetLogsFromSource(int batch);
     }
  
     public class LogSistemaService : ILogSistemaService
@@ -30,32 +30,50 @@ namespace IpCorpTestApi.Services
              _configuration=configuration;           
         }        
 
-        public LogSistemaDTO GetByID(int ID)
+        public LogSistema GetByID(int ID)
         {
-            LogSistema lg = _context.LogsSistema.FirstOrDefault(x=>x.LogSistemaId==ID);
-            if(lg==null)
+            LogSistema ls = _context.LogsSistema.FirstOrDefault(x=>x.LogSistemaId==ID);
+            if(ls==null)
                 return null;
             
-            return _mapper.Map<LogSistemaDTO>(lg);
+            return ls;
         }
 
-        public IList<LogSistemaDTO> GetAll()
+        public IList<LogSistema> GetAll()
         {
-            IList<LogSistema> list = _context.LogsSistema.ToList();
-            return _mapper.Map<IList<LogSistemaDTO>>(list);
+            return _context.LogsSistema.ToList();
         }  
 
-        public async Task<bool> GetLogsFromSource(int batch)
+        public async Task<int> GetLogsFromSource(int batch)
         {   
+            int  importedLogs =0;
             IConfigurationSection appSettingsSection = _configuration.GetSection("AppSettings");
             AppSettings appSettings = appSettingsSection.Get<AppSettings>();
             IpCorpApiClient ac = new IpCorpApiClient(appSettings.Service,appSettings.TokenService,appSettings.GrantType,appSettings.Username,appSettings.Password,appSettings.ClientID);            
-            List<LogSistemaDTO> ls =await ac.GetLogs("$filter=Data ge 2019-02-08&$orderby=Data desc&$pagesize=2&$page=1");
-            _context.LogsSistema.AddRange(_mapper.Map<IList<LogSistema>>(ls));
-            _context.SaveChanges();
-            return true;
+            List<LogSistemaResponse> list =await ac.GetLogs(GetFilter(batch));
+
+            foreach(LogSistemaResponse lsr in list)
+            {
+                if(!_context.LogsSistema.Any(x=>x.LogSistemaId==lsr.LogSistemaId))
+                {
+                    _context.LogsSistema.Add(_mapper.Map<LogSistema>(lsr));
+                    importedLogs++;
+                }                 
+            }
+
+            if(importedLogs>0)
+                _context.SaveChanges();
+
+            return importedLogs;
         }
 
+        private string GetFilter(int batch)
+        {
+            string filter = "$filter=Data ge {date}&$orderby=Data desc&$pagesize={batch}&$page=1";
+            filter = filter.Replace("{date}",DateTime.Today.ToString("yyyy-MM-dd"));
+            filter = filter.Replace("{batch}",batch.ToString());
+            return filter;
+        }
       
               
     }
