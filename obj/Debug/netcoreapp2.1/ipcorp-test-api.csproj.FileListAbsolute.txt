@@ -1,0 +1,14 @@
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\bin\Debug\netcoreapp2.1\ipcorp-test-api.deps.json
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\bin\Debug\netcoreapp2.1\ipcorp-test-api.runtimeconfig.json
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\bin\Debug\netcoreapp2.1\ipcorp-test-api.runtimeconfig.dev.json
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\bin\Debug\netcoreapp2.1\ipcorp-test-api.dll
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\bin\Debug\netcoreapp2.1\ipcorp-test-api.pdb
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\obj\Debug\netcoreapp2.1\ipcorp-test-api.csprojAssemblyReference.cache
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\obj\Debug\netcoreapp2.1\ipcorp-test-api.csproj.CoreCompileInputs.cache
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\obj\Debug\netcoreapp2.1\ipcorp-test-api.RazorAssemblyInfo.cache
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\obj\Debug\netcoreapp2.1\ipcorp-test-api.RazorAssemblyInfo.cs
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\obj\Debug\netcoreapp2.1\ipcorp-test-api.AssemblyInfoInputs.cache
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\obj\Debug\netcoreapp2.1\ipcorp-test-api.AssemblyInfo.cs
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\obj\Debug\netcoreapp2.1\ipcorp-test-api.RazorTargetAssemblyInfo.cache
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\obj\Debug\netcoreapp2.1\ipcorp-test-api.dll
+C:\Andrew\Projetos\Asp.Net Core\ipcorp-test-api\obj\Debug\netcoreapp2.1\ipcorp-test-api.pdb
