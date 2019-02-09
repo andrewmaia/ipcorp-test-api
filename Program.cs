@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace ipcorp_test_api
+namespace IpCorpTestApi
 {
     public class Program
     {
