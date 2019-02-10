@@ -41,7 +41,7 @@ namespace IpCorpTestApi.Services
 
         public IList<LogSistema> GetAll()
         {
-            return _context.LogsSistema.ToList();
+            return _context.LogsSistema.OrderByDescending(x=>x.LogSistemaId).ToList();
         }  
 
         public async Task<int> GetLogsFromSource()

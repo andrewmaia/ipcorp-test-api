@@ -43,7 +43,7 @@ namespace IpCorpTestApi.Controllers
         } 
 
         [HttpGet("GetLogsFromSource")]
-         public async Task<IActionResult> GetLogsFromSource()
+        public async Task<IActionResult> GetLogsFromSource()        
         {
             int importedLogs = await _logSistemaService.GetLogsFromSource();
             return Ok(new {ImportedLogs = importedLogs});
