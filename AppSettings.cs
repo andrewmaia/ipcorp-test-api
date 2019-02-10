@@ -8,7 +8,7 @@ namespace IpCorpTestApi
         public string Username { get; set; }    
         public string Password { get; set; }    
         public string ClientID { get; set; }                                    
-
+        public int Batch { get; set; } 
 
     }
 }

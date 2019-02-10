@@ -12,7 +12,7 @@ Foi utilizado a biblioteca AutoMapper para mapeamentos entre o objeto response L
 Adicionar itens Readme
 -Questão do ApiClient não estar generico
 -Questão de criar um token varias vezes
--Descricao rotina de importação: só grava um id uma vez e só pega os x ultimos
+-Descricao rotina de importação: só grava um id uma vez e só pega os x ultimos, batch
 -AppSettings
 -EntityFrameWork/Lazy Load
 -Injecao: Implementação deve estar em outro projeto

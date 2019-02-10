@@ -15,7 +15,7 @@ namespace IpCorpTestApi.Services
         LogSistema GetByID(int ID);
         IList<LogSistema> GetAll();
 
-         Task<int> GetLogsFromSource(int batch);
+         Task<int> GetLogsFromSource();
     }
  
     public class LogSistemaService : ILogSistemaService
@@ -44,27 +44,22 @@ namespace IpCorpTestApi.Services
             return _context.LogsSistema.ToList();
         }  
 
-        public async Task<int> GetLogsFromSource(int batch)
-        {   
-            int  importedLogs =0;
+        public async Task<int> GetLogsFromSource()
+       {   
             IConfigurationSection appSettingsSection = _configuration.GetSection("AppSettings");
             AppSettings appSettings = appSettingsSection.Get<AppSettings>();
+
+            //Acessa API IpCorp
             IpCorpApiClient ac = new IpCorpApiClient(appSettings.Service,appSettings.TokenService,appSettings.GrantType,appSettings.Username,appSettings.Password,appSettings.ClientID);            
-            List<LogSistemaResponse> list =await ac.GetLogs(GetFilter(batch));
-
-            foreach(LogSistemaResponse lsr in list)
-            {
-                if(!_context.LogsSistema.Any(x=>x.LogSistemaId==lsr.LogSistemaId))
-                {
-                    _context.LogsSistema.Add(_mapper.Map<LogSistema>(lsr));
-                    importedLogs++;
-                }                 
-            }
-
-            if(importedLogs>0)
-                _context.SaveChanges();
-
-            return importedLogs;
+            List<LogSistemaResponse> list =await ac.GetLogs(GetFilter(appSettings.Batch));
+            
+            //Remove todas as Logs ja importadas
+            _context.RemoveRange(_context.LogsSistema);
+            //Insere as novas Logs
+            _context.LogsSistema.AddRange(_mapper.Map<IList<LogSistema>>(list));
+            
+            _context.SaveChanges();
+            return list.Count;
         }
 
         private string GetFilter(int batch)
